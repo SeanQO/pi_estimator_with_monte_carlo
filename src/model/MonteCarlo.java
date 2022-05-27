@@ -86,11 +86,7 @@ public class MonteCarlo {
 		   // calculate current PI
 		   this.piCalc = this.calcPi();
 		   // compare error with epsilon
-		   error = this.getError(this.piCalc);
-	   // exit if there cannot be determined a Pi with an error less than epsilon
-	   if ((this.in + this.out) > 100000000) {
-	    break;
-	   }
+		   this.error = this.getError(this.piCalc);
 	  }
 	   System.out.println("Error (" + this.pi.subtract(this.piCalc).abs().setScale(15, RoundingMode.CEILING)  + ") < epsilon (" + this.epsilon.setScale(10, RoundingMode.CEILING) + ")? ");
 	  print((int) (this.in + this.out));
