@@ -3,7 +3,9 @@ package model;
 public class MonteCarloEstimator {
 	
 	public static void main(String[] args) {
-		  MonteCarlo mc = new MonteCarlo(5, (long) 0.00001);
-		  mc.calculatePi();
+		// create an object
+		  MonteCarlo mc = new MonteCarlo();
+		  // calculate PI for a certain epsilon
+		  mc.calcEpsilon();	
      }
 }
