@@ -12,7 +12,12 @@ public class MonteCarlo {
 	 private BigDecimal piCalc = new BigDecimal(0.0);
 	 private BigDecimal epsilon = new BigDecimal(0.00001);
 	 private int error = 1;
-	 // get random value
+	 private int n;
+	 
+	 public MonteCarlo(int n) {
+		this.n = n;
+	}
+	// get random value
 	 private double getRand() {
 	  Random rd = new Random();
 	  return rd.nextDouble();
@@ -66,32 +71,28 @@ public class MonteCarlo {
 	 public void calcEpsilon() {
 	  // initiate values
 	  this.resetValues();
-	  // Boolean is used to determine whether the calculated value for PI is acceptable
-	  Boolean done = false;
 	  // compute until done is true
-	  while (!done) {
-	   double x = this.getRand();
-	   double y = this.getRand();
-	   if (x * x + y * y <= 1) {
-	    this.in++;
-	    } else {
-	    this.out++;
-	   }
-	   // calculate current PI
-	   this.piCalc = this.calcPi();
-	   // compare error with epsilon
-	   error = this.getError(this.piCalc);
-	   // epsilon is greater than error
-	   if (error == -1) {
-	    // error is less than epsilon
-	    done = true;
-	   }
+	  for (int i = 0; i < n; i++) {
+		   double x = this.getRand();
+		   double y = this.getRand();
+		   if (x * x + y * y <= 1) {
+		    // point is inside the circle
+		    this.in++;
+		   } else {
+		    // point is outside the circle
+		    this.out++;
+		   }
+		   
+		   // calculate current PI
+		   this.piCalc = this.calcPi();
+		   // compare error with epsilon
+		   error = this.getError(this.piCalc);
 	   // exit if there cannot be determined a Pi with an error less than epsilon
 	   if ((this.in + this.out) > 100000000) {
 	    break;
 	   }
 	  }
-	   System.out.println("Error (" + this.pi.subtract(this.piCalc).abs().setScale(15, RoundingMode.CEILING)  + ") < epsilon (" + this.epsilon.setScale(10, RoundingMode.CEILING) + ")? " + done);
+	   System.out.println("Error (" + this.pi.subtract(this.piCalc).abs().setScale(15, RoundingMode.CEILING)  + ") < epsilon (" + this.epsilon.setScale(10, RoundingMode.CEILING) + ")? ");
 	  print((int) (this.in + this.out));
 	 }
 }
